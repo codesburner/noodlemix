@@ -1,3 +1,5 @@
+'use strict';
+
 var auth = require('../lib/authenticate');
 
 module.exports = function(app, nconf) {

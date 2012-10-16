@@ -24,7 +24,7 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
@@ -45,4 +45,41 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-Regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial;
+}
+
+.wrapper {
+    padding: 10px;
+}
+
+header {
+    background-color: #111;
+    color: #eee;
+    padding: 10px;
+    width: 320px;
+}
+
+header a {
+    color: #ccc;
+}
+
+h1 {
+    font-family: 'Oswald';
+    font-size: 20px;
 }

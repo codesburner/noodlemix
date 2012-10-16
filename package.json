@@ -13,7 +13,9 @@
     "jade": ">= 0.27.2",
     "request": "git://github.com/mikeal/request.git",
     "nconf": "git://github.com/flatiron/nconf.git",
-    "requirejs": "<= 2.1.0"
+    "requirejs": ">= 2.1.0",
+    "hiredis": "0.1.14",
+    "redis": "0.7.2"
   },
   "devDependencies": {
     "mocha": ">= 1.4.2",
