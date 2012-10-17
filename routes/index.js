@@ -11,7 +11,7 @@ module.exports = function(app, client, isLoggedIn) {
   });
 
   app.get('/recent', function(req, res) {
-    mixes.getRecentMixes(client, function(err, mixes) {
+    mixes.getRecentMixes(req, client, function(err, mixes) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'Could not retrieve mixes' });
@@ -27,6 +27,17 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'Invalid format' });
       } else {
         res.json({ mix: mix });
+      }
+    });
+  });
+
+  app.delete('/mix', function(req, res) {
+    mixes.deleteMix(req, client, function(err, mix) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'Could not delete' });
+      } else {
+        res.json({ message: 'deleted mix' });
       }
     });
   });

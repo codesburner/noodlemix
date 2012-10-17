@@ -6,12 +6,17 @@ define(['jquery'],
   var mixList = $('#mixes');
 
   var generateMixList = function(data) {
-    var mixItem = $('<li><h2></h2><h3></h3><p class="release-date"></p>' +
-      '<p class="total-time"></p></li>');
+    var mixItem = $('<li data-title=""><h2></h2><h3></h3>' +
+      '<p class="release-date"></p><p class="total-time"></p></li>');
+    mixItem.attr('data-title', data.id);
     mixItem.find('h2').text(data.artist);
     mixItem.find('h3').text(data.title);
     mixItem.find('p.release-date').text(data.releaseDate);
     mixItem.find('p.total-time').text(data.totalTime);
+    if (data.isDeletable) {
+      var deletable = $('<span class="delete">delete</span>');
+      mixItem.append(deletable);
+    }
     mixList.prepend(mixItem);
   };
 
@@ -37,6 +42,17 @@ define(['jquery'],
         for (var i = 0; i < data.mixes.length; i ++) {
           generateMixList(data.mixes[i]);
         }
+      });
+    },
+
+    deleteMix: function(self) {
+      $.ajax({
+        url: '/mix',
+        data: { title: self.closest('li').data('title') },
+        type: 'DELETE',
+        dataType: 'json'
+      }).done(function(data) {
+        self.closest('li').remove();
       });
     }
   };

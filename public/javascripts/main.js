@@ -14,6 +14,8 @@ define(['jquery', 'mixes'],
   var login = $('#login');
   var logout = $('#logout');
   var mixForm = $('#mix-form');
+  var deletable = $('.delete');
+  var mixList = $('#mixes');
 
   login.click(function(ev) {
     ev.preventDefault();
@@ -62,5 +64,11 @@ define(['jquery', 'mixes'],
 
     var self = $(this);
     mixes.addMix(self);
+  });
+
+  mixList.on('click', '.delete', function() {
+    var self = $(this);
+
+    mixes.deleteMix(self);
   });
 });
