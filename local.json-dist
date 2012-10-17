@@ -4,5 +4,8 @@
     "authPort": 3000,
     "authUrl": "https://login.persona.org",
     "session_secret": "secret",
-    "session_cookie": "session_your_cookie_name"
+    "session_cookie": "session_your_cookie_name",
+    "redis_dev": 0,
+    "redis_test": 8,
+    "redis_prod": 9
 }

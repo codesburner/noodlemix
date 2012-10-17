@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -82,4 +82,20 @@ header a {
 h1 {
     font-family: 'Oswald';
     font-size: 20px;
+}
+
+#mixes {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+#mixes li {
+    clear: both;
+    float: left;
+}
+
+#mixes h2, #mixes h3, #mixes p {
+    float: left;
+    margin-right: 10px;
 }

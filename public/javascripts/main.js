@@ -1,18 +1,19 @@
 'use strict';
 
 requirejs.config({
-  baseUrl: '/javascripts/lib',
+  baseUrl: '/javascripts',
   enforceDefine: true,
   paths: {
     jquery: '/javascripts/jquery'
   }
 });
 
-define(['jquery'],
-  function($) {
+define(['jquery', 'mixes'],
+  function($, mixes) {
 
   var login = $('#login');
   var logout = $('#logout');
+  var mixForm = $('#mix-form');
 
   login.click(function(ev) {
     ev.preventDefault();
@@ -25,7 +26,7 @@ define(['jquery'],
   });
 
   navigator.id.watch({
-    loggedInEmail: currentUser,
+    loggedInUser: currentUser,
     onlogin: function(assertion) {
       $.ajax({
         type: 'POST',
@@ -52,5 +53,14 @@ define(['jquery'],
         }
       });
     }
+  });
+
+  mixes.getRecentMixes();
+
+  mixForm.submit(function(ev) {
+    ev.preventDefault();
+
+    var self = $(this);
+    mixes.addMix(self);
   });
 });

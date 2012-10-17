@@ -4,4 +4,12 @@ block content
   p This is the main page
 
   if session.email
-    p You are logged in!
+    form(method='post', action='/add', id='mix-form')
+      h2 Add a new mix
+      input(type='text', placeholder='Artist', name='artist', value='')
+      input(type='text', placeholder='Mix title', name='title', value='')
+      input(type='text', placeholder='Release date', name='release_date', value='')
+      input(type='text', placeholder='Total time', name='total_time', value='')
+      button(type='submit') Add
+
+  ol#mixes
