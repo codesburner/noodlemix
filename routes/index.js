@@ -24,6 +24,7 @@ module.exports = function(app, client, isLoggedIn) {
   app.post('/add', function(req, res) {
     mixes.addMix(req, client, function(err, mix) {
       if (err) {
+        res.status(500);
         res.json({ 'error': 'Invalid format' });
       } else {
         res.json({ mix: mix });
@@ -39,6 +40,14 @@ module.exports = function(app, client, isLoggedIn) {
       } else {
         res.json({ message: 'deleted mix' });
       }
+    });
+  });
+
+  // Logout
+  app.post('/persona/logout', isLoggedIn, function(req, res) {
+    req.session.reset();
+    res.json({
+      'message': 'logged out'
     });
   });
 };

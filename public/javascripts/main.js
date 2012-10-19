@@ -11,50 +11,75 @@ requirejs.config({
 define(['jquery', 'mixes'],
   function($, mixes) {
 
-  var login = $('#login');
-  var logout = $('#logout');
-  var mixForm = $('#mix-form');
-  var deletable = $('.delete');
-  var mixList = $('#mixes');
+  var body = $('body');
+  var mixForm = body.find('#mix-form');
+  var deletable = body.find('.delete');
+  var mixList = body.find('#mixes');
+  var flashMsg = body.find('#flash');
+  var cancel = body.find('.cancel');
 
-  login.click(function(ev) {
-    ev.preventDefault();
-    navigator.id.request();
-  });
+  body.click(function() {
+    if (flashMsg.hasClass('on')) {
+      flashMsg.addClass('off', function() {
+        var self = $(this);
 
-  logout.click(function(ev) {
-    ev.preventDefault();
-    navigator.id.logout();
-  });
-
-  navigator.id.watch({
-    loggedInUser: currentUser,
-    onlogin: function(assertion) {
-      $.ajax({
-        type: 'POST',
-        url: '/login',
-        data: { assertion: assertion },
-        success: function(res, status, xhr) {
-          currentUser = res.email;
-          window.location.reload();
-        },
-        error: function(res, status, xhr) {
-          alert('login failure ' + res);
-        }
-      });
-    },
-    onlogout: function() {
-      $.ajax({
-        type: 'GET',
-        url: '/logout',
-        success: function(res, status, xhr) {
-          window.location.reload();
-        },
-        error: function(res, status, xhr) {
-          console.log('logout failure ' + res);
-        }
+        self
+          .removeClass('error')
+          .removeClass('on');
       });
     }
+  });
+
+  body.on('click', '.cancel', function() {
+    var currentForm = $(this).closest('form');
+    currentForm.removeClass('on');
+    currentForm.addClass('off');
+  });
+
+  body.on('click', '#add', function() {
+    mixForm.removeClass('off');
+    mixForm.addClass('on');
+  });
+
+  body.on('click', '#login', function(ev) {
+    ev.preventDefault();
+
+    navigator.id.get(function(assertion) {
+      if (!assertion) {
+        return;
+      }
+
+      $.ajax({
+        url: '/persona/verify',
+        type: 'POST',
+        data: { assertion: assertion },
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        if (data.status === 'okay') {
+          document.location.href = '/';
+        } else {
+          flashMsg.text('Login failed because ' + data.reason);
+        }
+      });
+    });
+  });
+
+  body.on('click', '#logout', function(ev) {
+    ev.preventDefault();
+
+    $.ajax({
+      url: '/persona/logout',
+      type: 'POST',
+      dataType: 'json',
+      cache: false
+    }).done(function(data) {
+      if (data.status === 'okay') {
+        document.location.href = '/';
+      } else {
+        flashMsg.text('Logout failed because ' + data.reason);
+      }
+    });
   });
 
   mixes.getRecentMixes();
@@ -70,5 +95,12 @@ define(['jquery', 'mixes'],
     var self = $(this);
 
     mixes.deleteMix(self);
+  });
+
+  mixList.on('click', 'li', function() {
+    var self = $(this);
+
+    mixList.find('li .tag-edit').hide();
+    self.find('.tag-edit').show();
   });
 });

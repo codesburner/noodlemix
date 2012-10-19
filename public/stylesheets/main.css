@@ -12,8 +12,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
@@ -54,8 +54,8 @@ html, body {
 }
 
 @font-face {
-    font-family: 'Oswald';
-    src: url('../fonts/Oswald-Regular-webfont.woff') format('woff');
+    font-family: 'League Gothic';
+    src: url('../fonts/League_Gothic-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -65,42 +65,324 @@ body {
 }
 
 .wrapper {
+    float: left;
+    position: relative;
+    padding-top: 50px;
+    min-width: 320px;
+    width: 100%;
+}
+
+@keyframes slidein {
+    from {
+        left: -280px;
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slideout {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: -280px;
+    }
+}
+
+@keyframes slidedown {
+    from {
+        top: -330px;
+    }
+
+    to {
+        top: 0;
+    }
+}
+
+@keyframes slideup {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: -330px;
+    }
+}
+
+#flash {
+    background-color: #111;
+    color: #eee;
+    font-weight: bold;
+    left: -300px;
     padding: 10px;
+    position: fixed;
+    text-shadow: 0 0 1px #555;
+    top: 0;
+    width: 280px;
+    z-index: 4;
+}
+
+#flash.error {
+    background-color: #c42c1c;
+}
+
+#flash.on {
+    animation-duration: 700ms;
+    animation-name: slidein;
+    -webkit-transition-duration: 700ms;
+    -webkit-transition-animation-name: slidein;
+    left: 0;
+}
+
+#flash.off {
+    animation-duration: 300ms;
+    animation-name: slideout;
+    -webkit-transition-duration: 300ms;
+    -webkit-transition-animation-name: slideout;
+    left: -300px;
 }
 
 header {
-    background-color: #111;
-    color: #eee;
-    padding: 10px;
-    width: 320px;
+    background-color: rgba(217, 217, 217, 0.86);
+    box-shadow: #555 0 0 2px;
+    color: #fff;
+    float: left;
+    height: 45px;
+    min-width: 320px;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
 }
 
 header a {
     color: #ccc;
 }
 
-h1 {
-    font-family: 'Oswald';
-    font-size: 20px;
+h1, h2 {
+    font-family: 'League Gothic';
+    text-transform: uppercase;
+}
+
+.header-wrapper {
+    padding: 10px;
+}
+
+header a {
+    background-repeat: no-repeat;
+    display: block;
+    height: 27px;
+    text-indent: -9999px;
+    width: 26px;
+}
+
+.actions li a:hover {
+    opacity: 0.3;
+}
+
+#add {
+    background-image: url('/images/add.png');
+    float: left;
+}
+
+#logout, #login {
+    background-image: url('/images/auth.png');
+    float: right;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    float: right;
+    font-family: 'League Gothic';
+    font-size: 25px;
+    margin: 18px 0 0 10px;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #222;
+    color: #eee;
+}
+
+.submit {
+    background-color: #95c854;
+    color: #fff;
+}
+
+.cancel {
+    background-color: #ccc;
+    color: #888;
+    float: left;
+    margin-left: 0;
+}
+
+#mix-form {
+    background-color: #eee;
+    box-shadow: #aaa 1px 1px 2px;
+    display: block;
+    height: 240px;
+    left: 10px;
+    padding: 70px 15px 15px 15px;
+    position: absolute;
+    top: -330px;
+    width: 260px;
+}
+
+#mix-form.on {
+    animation-duration: 500ms;
+    animation-name: slidedown;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-animation-name: slidedown;
+    top: 0;
+}
+
+#mix-form.off {
+    animation-duration: 500ms;
+    animation-name: slideup;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-animation-name: slideup;
+    top: -330px;
+}
+
+#mix-form h2 {
+    color: #555;
+    font-size: 30px;
+    margin-bottom: 5px;
+    text-shadow: 0px 1px 0px #fff;
+}
+
+#mix-form input {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-size: 15px;
+    margin: 8px 0 0;
+    padding: 5px;
+    width: 249px;
 }
 
 #mixes {
+    clear: both;
+    display: block;
+    float: left;
+    margin-top: -5px;
+    width: 100%;
+}
+
+#mixes li {
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    clear: both;
     display: block;
     float: left;
     width: 100%;
 }
 
-#mixes li {
-    clear: both;
-    float: left;
+#mixes li.header {
+    background-color: #e9e9e9;
+    border-bottom: 1px solid #ddd;
+}
+
+#mixes li.header h2 {
+    color: #888;
+}
+
+#mixes li.header h3, #mixes li.header p {
+    border-left: 1px solid #ddd;
+    color: #888;
 }
 
 #mixes h2, #mixes h3, #mixes p {
     float: left;
-    margin-right: 10px;
+    font-family: Arial;
+    font-size: 15px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#mixes h2 {
+    color: #111;
+    padding: 10px 10px 10px 20px;
+    text-transform: none;
+    min-width: 80px;
+    width: 22%;
+}
+
+#mixes h3 {
+    border-left: 1px solid #e7e7e7;
+    font-size: 15px;
+    padding: 10px;
+    min-width: 100px;
+    width: 26%;
+}
+
+#mixes p {
+    border-left: 1px solid #e7e7e7;
+    padding: 10px;
+    min-width: 70px;
+    width: 10%;
+}
+
+#mixes .mix-actions {
+    padding-right: 20px;
+    width: 70px;
+}
+
+#mixes .mix-actions {
+    padding: 8px 10px 0;
+}
+
+#mixes .mix-actions a {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 25px;
+    margin: -2px 5px 0;
+    text-indent: -9999px;
+    width: 25px;
+}
+
+#mixes .mix-actions a:hover {
+    opacity: 0.5;
+}
+
+#mixes .mix-actions .edit {
+    background-image: url('/images/edit.png');
+}
+
+#mixes .mix-actions .delete {
+    background-image: url('/images/delete.png');
 }
 
 #mixes li .delete {
     cursor: pointer;
     color: #f00;
+}
+
+@media only screen and (max-width: 770px) {
+    #mixes h2, #mixes h3 {
+        width: 20%;
+    }
+
+    #mixes p.release-date {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #mixes h2 {
+        display: none;
+    }
+
+    #mixes h3 {
+        width: 208px;
+    }
+
+    #mixes p.total-time {
+        display: none;
+    }
 }

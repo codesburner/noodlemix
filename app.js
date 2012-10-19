@@ -19,16 +19,19 @@ var isLoggedIn = function(req, res, next) {
   }
 };
 
+require('express-persona')(app, {
+  audience: nconf.get('domain') + ':' + nconf.get('authPort')
+});
+
 // routes
 require("./routes")(app, client, isLoggedIn);
-require('./routes/auth')(app, nconf);
 
 app.get('/404', function(req, res, next){
   next();
 });
 
 app.get('/403', function(req, res, next){
-  err.status = 403;
+  res.status = 403;
   next(new Error('not allowed!'));
 });
 

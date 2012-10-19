@@ -4,20 +4,26 @@ define(['jquery'],
   function($) {
 
   var mixList = $('#mixes');
+  var flashMsg = $('#flash');
 
   var generateMixList = function(data) {
     var mixItem = $('<li data-title=""><h2></h2><h3></h3>' +
-      '<p class="release-date"></p><p class="total-time"></p></li>');
+      '<p class="release-date"></p><p class="total-time"></p>' +
+      '<p class="mix-actions"></p></li>');
     mixItem.attr('data-title', data.id);
     mixItem.find('h2').text(data.artist);
     mixItem.find('h3').text(data.title);
     mixItem.find('p.release-date').text(data.releaseDate);
     mixItem.find('p.total-time').text(data.totalTime);
-    if (data.isDeletable) {
-      var deletable = $('<span class="delete">delete</span>');
-      mixItem.append(deletable);
+    if (data.isEditable) {
+      var editable = $('<a href="#" class="edit">edit</a>');
+      mixItem.find('.mix-actions').append(editable);
     }
-    mixList.prepend(mixItem);
+    if (data.isDeletable) {
+      var deletable = $('<a href="#" class="delete">delete</a>');
+      mixItem.find('.mix-actions').append(deletable);
+    }
+    mixList.append(mixItem);
   };
 
   var self = {
@@ -30,6 +36,12 @@ define(['jquery'],
         cache: false
       }).done(function(data) {
         generateMixList(data.mix);
+      }).error(function(data) {
+        flashMsg
+          .text(JSON.parse(data.responseText).error)
+          .removeClass('off')
+          .addClass('error')
+          .addClass('on');
       });
     },
 
