@@ -25,7 +25,7 @@ module.exports = function(app, client, isLoggedIn) {
     mixes.addMix(req, client, function(err, mix) {
       if (err) {
         res.status(500);
-        res.json({ 'error': 'Invalid format' });
+        res.json({ 'error': err.message });
       } else {
         res.json({ mix: mix });
       }

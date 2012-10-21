@@ -5,6 +5,7 @@ define(['jquery'],
 
   var mixList = $('#mixes');
   var flashMsg = $('#flash');
+  var mixForm = $('#mix-form');
 
   var generateMixList = function(data) {
     var mixItem = $('<li data-title=""><h2></h2><h3></h3>' +
@@ -36,6 +37,7 @@ define(['jquery'],
         cache: false
       }).done(function(data) {
         generateMixList(data.mix);
+        mixForm.removeClass('on').addClass('off');
       }).error(function(data) {
         flashMsg
           .text(JSON.parse(data.responseText).error)
