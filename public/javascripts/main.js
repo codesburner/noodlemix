@@ -8,13 +8,15 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'mixes'],
-  function($, mixes) {
+define(['jquery', 'mixes', 'tags'],
+  function($, mixes, tags) {
 
   var body = $('body');
   var mixForm = body.find('#mix-form');
+  var tagForm = body.find('#tag-form');
   var deletable = body.find('.delete');
   var mixList = body.find('#mixes');
+  var tagList = body.find('#tags');
   var flashMsg = body.find('#flash');
   var cancel = body.find('.cancel');
 
@@ -37,8 +39,11 @@ define(['jquery', 'mixes'],
   });
 
   body.on('click', '#add', function() {
-    mixForm.removeClass('off');
-    mixForm.addClass('on');
+    if (mixForm.length > 0) {
+      mixForm.removeClass('off').addClass('on');
+    } else if (tagForm.length > 0) {
+      tagForm.removeClass('off').addClass('on');
+    }
   });
 
   body.on('click', '#login', function(ev) {
@@ -82,7 +87,11 @@ define(['jquery', 'mixes'],
     });
   });
 
-  mixes.getRecentMixes();
+  if (mixForm.length > 0) {
+    mixes.getRecentMixes();
+  } else if (tagForm.length > 0) {
+    tags.getTagsByMix();
+  }
 
   mixForm.submit(function(ev) {
     ev.preventDefault();
@@ -95,6 +104,19 @@ define(['jquery', 'mixes'],
     var self = $(this);
 
     mixes.deleteMix(self);
+  });
+
+  tagForm.submit(function(ev) {
+    ev.preventDefault();
+
+    var self = $(this);
+    tags.addTag(self);
+  });
+
+  tagList.on('click', '.delete', function() {
+    var self = $(this);
+
+    tags.deleteTag(self);
   });
 
   mixList.on('click', 'li', function() {

@@ -2,7 +2,7 @@ extend layout
 
 block content
   if session.email
-    form(method='post', action='/add', id='mix-form')
+    form(method='post', action='/mix', id='mix-form')
       h2 Add a new mix
       input(type='text', placeholder='Artist', name='artist', value='')
       input(type='text', placeholder='Mix title', name='title', value='')

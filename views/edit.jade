@@ -1,0 +1,23 @@
+extend layout
+
+block content
+  if session.email
+    form(method='post', action='/tag', id='tag-form')
+      h2 Add a new tag
+      input(type='text', placeholder='Keywords', name='keywords', value='')
+      input(type='text', placeholder='Start time (hh:mm:ss)', name='start_time', value='')
+      input(type='text', placeholder='End time (hh:mm:ss)', name='end_time', value='')
+      input(type='hidden', name='mix_name', value='#{mix.id}')
+      .boolean
+        input(type='checkbox', name='is_track')
+        label(for='is_track', class='checkbox') is this a full track?
+      button(type='reset', class='cancel') Cancel
+      button(type='submit', class='submit') Add
+
+  #display.details
+    h2.artist= 'Artist: ' + mix.artist
+    h2= 'Mix: ' + mix.title
+    h3.release-date= 'Release Date: ' + mix.releaseDate
+    h3.total-time= 'Length: ' + mix.totalTime
+
+  ol#tags(data-title='#{mix.id}')

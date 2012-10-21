@@ -61,6 +61,7 @@ html, body {
 }
 
 body {
+    background-color: #fff;
     font-family: Arial;
 }
 
@@ -114,19 +115,19 @@ body {
 
 #flash {
     background-color: #111;
-    color: #eee;
+    color: #f1f1f1;
     font-weight: bold;
     left: -300px;
     padding: 10px;
     position: fixed;
-    text-shadow: 0 0 1px #555;
+    text-shadow: 0 0 1px #888;
     top: 0;
     width: 280px;
     z-index: 4;
 }
 
 #flash.error {
-    background-color: #c42c1c;
+    background-color: #dc2121;
 }
 
 #flash.on {
@@ -146,7 +147,7 @@ body {
 }
 
 header {
-    background-color: rgba(217, 217, 217, 0.86);
+    background-color: rgba(255, 255, 255, 0.86);
     box-shadow: #555 0 0 2px;
     color: #fff;
     float: left;
@@ -187,6 +188,12 @@ header a {
     float: left;
 }
 
+#home {
+    background-image: url('/images/home.png');
+    float: right;
+    margin-right: 5px;
+}
+
 #logout, #login {
     background-image: url('/images/auth.png');
     float: right;
@@ -219,7 +226,7 @@ button:hover {
     margin-left: 0;
 }
 
-#mix-form {
+#mix-form, #tag-form {
     background-color: #eee;
     box-shadow: #aaa 1px 1px 2px;
     display: block;
@@ -231,7 +238,7 @@ button:hover {
     width: 260px;
 }
 
-#mix-form.on {
+#mix-form.on, #tag-form.on {
     animation-duration: 500ms;
     animation-name: slidedown;
     -webkit-transition-duration: 500ms;
@@ -239,7 +246,7 @@ button:hover {
     top: 0;
 }
 
-#mix-form.off {
+#mix-form.off, #tag-form.off {
     animation-duration: 500ms;
     animation-name: slideup;
     -webkit-transition-duration: 500ms;
@@ -247,20 +254,39 @@ button:hover {
     top: -330px;
 }
 
-#mix-form h2 {
+#mix-form h2, #tag-form h2 {
     color: #555;
     font-size: 30px;
     margin-bottom: 5px;
     text-shadow: 0px 1px 0px #fff;
 }
 
-#mix-form input {
+#mix-form input[type="text"], #tag-form input[type="text"] {
     border: 1px solid #ddd;
     border-radius: 2px;
     font-size: 15px;
     margin: 8px 0 0;
     padding: 5px;
     width: 249px;
+}
+
+input[type="checkbox"] {
+    float: left;
+    margin: 2px 5px 5px;
+}
+
+label.checkbox {
+    color: #666;
+    float: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.boolean {
+    clear: both;
+    float: left;
+    padding: 15px 0 0;
+    width: 100%;
 }
 
 #mixes {
@@ -328,6 +354,7 @@ button:hover {
 
 #mixes p {
     border-left: 1px solid #e7e7e7;
+    height: 20px;
     padding: 10px;
     min-width: 70px;
     width: 10%;
@@ -367,6 +394,90 @@ button:hover {
 #mixes li .delete {
     cursor: pointer;
     color: #f00;
+}
+
+#display {
+    background-color: #eee;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: #aaa 0 0 2px;
+    margin: -5px 10px 0 10px;
+    padding: 20px;
+}
+
+#display h2 {
+    color: #888;
+    font-size: 35px;
+    line-height: 35px;
+    margin-bottom: 8px;
+}
+
+#display h2.artist {
+    color: #444;
+}
+
+#display h3 {
+    color: #aaa;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+#tags {
+    display: block;
+    float: left;
+    padding: 10px 5px;
+}
+
+#tags li {
+    background-color: #77e7f8;
+    border-radius: 3px;
+    border-bottom-left-radius: 34px;
+    border-top-left-radius: 34px;
+    box-shadow: #aaa 1px 1px 2px;
+    color: #336d75;
+    display: block;
+    float: left;
+    margin: 5px;
+    overflow: hidden;
+    padding: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 284px;
+}
+
+#tags li img {
+    border: 2px solid #fff;
+    border-radius: 150px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    width: 50px;
+}
+
+#tags li.track {
+    background-color: #c3f04a;
+    color: #627433;
+}
+
+#tags li h2 {
+    font-size: 20px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 0 1px #fff;
+}
+
+#tags li p.meta {
+    background-color: #b8f6ff;
+    border-radius: 3px;
+    float: left;
+    font-size: 13px;
+    margin: 5px 5px 0 0;
+    padding: 3px;
+}
+
+#tags li.track p.meta {
+    background-color: #e9ffaf;
 }
 
 @media only screen and (max-width: 770px) {

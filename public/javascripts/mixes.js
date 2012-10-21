@@ -14,10 +14,10 @@ define(['jquery'],
     mixItem.attr('data-title', data.id);
     mixItem.find('h2').text(data.artist);
     mixItem.find('h3').text(data.title);
-    mixItem.find('p.release-date').text(data.releaseDate);
+    mixItem.find('p.release-date').text( data.releaseDate);
     mixItem.find('p.total-time').text(data.totalTime);
     if (data.isEditable) {
-      var editable = $('<a href="#" class="edit">edit</a>');
+      var editable = $('<a href="/edit/' + data.id + '" class="edit">edit</a>');
       mixItem.find('.mix-actions').append(editable);
     }
     if (data.isDeletable) {
@@ -48,15 +48,17 @@ define(['jquery'],
     },
 
     getRecentMixes: function() {
-      $.ajax({
-        url: '/recent',
-        type: 'GET',
-        dataType: 'json'
-      }).done(function(data) {
-        for (var i = 0; i < data.mixes.length; i ++) {
-          generateMixList(data.mixes[i]);
-        }
-      });
+      if (mixList) {
+        $.ajax({
+          url: '/recent',
+          type: 'GET',
+          dataType: 'json'
+        }).done(function(data) {
+          for (var i = 0; i < data.mixes.length; i ++) {
+            generateMixList(data.mixes[i]);
+          }
+        });
+      }
     },
 
     deleteMix: function(self) {
