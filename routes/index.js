@@ -67,9 +67,15 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': err.message });
       } else {
-        console.log('** ', tag)
         res.json({ tag: tag });
       }
+    });
+  });
+
+  app.post('/tracklist', function(req, res) {
+    tags.addTagsByTracklist(req, client, function(tags) {
+      console.log(tags)
+      res.json({ tags: tags });
     });
   });
 

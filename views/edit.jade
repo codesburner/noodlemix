@@ -1,5 +1,10 @@
 extend layout
 
+block header
+  a(href='#', id='add') Add Tag
+  a(href='#', id='add-tracklist') Add Tracklist
+  a(href='#', id='logout') Log out
+
 block content
   if session.email
     form(method='post', action='/tag', id='tag-form')
@@ -11,6 +16,13 @@ block content
       .boolean
         input(type='checkbox', name='is_track')
         label(for='is_track', class='checkbox') is this a full track?
+      button(type='reset', class='cancel') Cancel
+      button(type='submit', class='submit') Add
+
+    form(method='post', action='/tracklist', id='tracklist-form')
+      h2 Add a new tracklist
+      textarea(name='tracklist')
+      input(type='hidden', name='mix_name', value='#{mix.id}')
       button(type='reset', class='cancel') Cancel
       button(type='submit', class='submit') Add
 

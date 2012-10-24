@@ -6,6 +6,7 @@ define(['jquery'],
   var tagList = $('#tags');
   var flashMsg = $('#flash');
   var tagForm = $('#tag-form');
+  var tracklistForm = $('#tracklist-form');
 
   var generateTagList = function(data) {
     var tagItem = $('<li data-title=""><img src=""><h2></h2>' +
@@ -37,6 +38,27 @@ define(['jquery'],
       }).done(function(data) {
         generateTagList(data.tag);
         tagForm.removeClass('on').addClass('off');
+      }).error(function(data) {
+        flashMsg
+          .text(JSON.parse(data.responseText).error)
+          .removeClass('off')
+          .addClass('error')
+          .addClass('on');
+      });
+    },
+
+    addTracklist: function(form) {
+      $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        for (var i = 0; i < data.tags.length; i ++) {
+          generateTagList(data.tags[i]);
+        }
+        tracklistForm.removeClass('on').addClass('off');
       }).error(function(data) {
         flashMsg
           .text(JSON.parse(data.responseText).error)

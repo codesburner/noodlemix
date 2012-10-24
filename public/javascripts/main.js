@@ -14,6 +14,7 @@ define(['jquery', 'mixes', 'tags'],
   var body = $('body');
   var mixForm = body.find('#mix-form');
   var tagForm = body.find('#tag-form');
+  var tracklistForm = body.find('#tracklist-form');
   var deletable = body.find('.delete');
   var mixList = body.find('#mixes');
   var tagList = body.find('#tags');
@@ -44,6 +45,10 @@ define(['jquery', 'mixes', 'tags'],
     } else if (tagForm.length > 0) {
       tagForm.removeClass('off').addClass('on');
     }
+  });
+
+  body.on('click', '#add-tracklist', function() {
+    tracklistForm.removeClass('off').addClass('on');
   });
 
   body.on('click', '#login', function(ev) {
@@ -111,6 +116,15 @@ define(['jquery', 'mixes', 'tags'],
 
     var self = $(this);
     tags.addTag(self);
+    tagForm.find('button.cancel').click();
+  });
+
+  tracklistForm.submit(function(ev) {
+    ev.preventDefault();
+
+    var self = $(this);
+    tags.addTracklist(self);
+    tagForm.find('button.cancel').click();
   });
 
   tagList.on('click', '.delete', function() {

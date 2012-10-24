@@ -183,9 +183,17 @@ header a {
     opacity: 0.3;
 }
 
-#add {
+#add, #add-tracklist {
     background-image: url('/images/add.png');
     float: left;
+    margin-right: 10px;
+}
+
+#tracklist-form textarea {
+    height: 140px;
+    padding: 5px;
+    resize: none;
+    width: 245px;
 }
 
 #home {
@@ -226,7 +234,7 @@ button:hover {
     margin-left: 0;
 }
 
-#mix-form, #tag-form {
+#mix-form, #tag-form, #tracklist-form {
     background-color: #eee;
     box-shadow: #aaa 1px 1px 2px;
     display: block;
@@ -238,7 +246,7 @@ button:hover {
     width: 260px;
 }
 
-#mix-form.on, #tag-form.on {
+#mix-form.on, #tag-form.on, #tracklist-form.on {
     animation-duration: 500ms;
     animation-name: slidedown;
     -webkit-transition-duration: 500ms;
@@ -246,7 +254,7 @@ button:hover {
     top: 0;
 }
 
-#mix-form.off, #tag-form.off {
+#mix-form.off, #tag-form.off, #tracklist-form.off {
     animation-duration: 500ms;
     animation-name: slideup;
     -webkit-transition-duration: 500ms;
@@ -254,14 +262,14 @@ button:hover {
     top: -330px;
 }
 
-#mix-form h2, #tag-form h2 {
+#mix-form h2, #tag-form h2, #tracklist-form h2 {
     color: #555;
     font-size: 30px;
     margin-bottom: 5px;
     text-shadow: 0px 1px 0px #fff;
 }
 
-#mix-form input[type="text"], #tag-form input[type="text"] {
+#mix-form input[type="text"], #tag-form input[type="text"], #tracklist-form input[type="text"] {
     border: 1px solid #ddd;
     border-radius: 2px;
     font-size: 15px;
